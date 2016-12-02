@@ -1,0 +1,8 @@
+.idea
+/vendor
+/node_modules
+composer.json
+/public/storage
+/storage/*.key
+/vendor
+.env
