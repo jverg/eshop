@@ -11,6 +11,18 @@
 |
 */
 
+/**
+ * Home page.
+ */
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.home');
 });
+
+/**
+ * Find us page.
+ */
+Route::get('/about', function () {
+  return view('pages.about');
+});
+
+Route::resource('books', 'BooksController');
