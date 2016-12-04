@@ -44,8 +44,8 @@ class BooksController extends Controller
 
       // Validate the data.
       $this->validate($request, array(
-        'title' => 'required|max:255',
         'isbn' => 'required|max:13',
+        'title' => 'required|max:255',
         'description' => 'required',
         'author' => 'required',
         'category' => 'required',
@@ -53,8 +53,8 @@ class BooksController extends Controller
 
       // Store the book in the database.
       $book = new Book;
-      $book->title = $request->title;
       $book->isbn = $request->isbn;
+      $book->title = $request->title;
       $book->description = $request->description;
       $book->author = $request->author;
       $book->category = $request->category;
@@ -86,21 +86,49 @@ class BooksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit($id) {
+
+      // Find the post in the database.
+      $book = Book::find($id);
+
+      // Return the view.
+      return view('books.edit')->withBook($book);
+
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified book in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id) {
+
+      // Validate the data.
+      $this->validate($request, array(
+        'isbn' => 'required|max:13',
+        'title' => 'required|max:255',
+        'description' => 'required',
+        'author' => 'required',
+        'category' => 'required',
+      ));
+
+      // Save the book to database.
+      $book = Book::find($id);
+      $book->isbn = $request->input('isbn');
+      $book->title = $request->input('title');
+      $book->description = $request->input('description');
+      $book->author = $request->input('author');
+      $book->category = $request->input('category');
+      $book->save();
+
+      // Show a success message.
+      Session::flash('success', 'This book successfully edited.');
+
+      // Redirect to book page.
+      return redirect()->route('books.show', $book->id);
+
     }
 
     /**
@@ -109,8 +137,15 @@ class BooksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id) {
+
+      // Find the book to delete.
+      $book = Book::find($id);
+
+      // Delete the book.
+      $book->delete();
+
+      Session::flash('success', 'The book was deleted successfully');
+      return redirect()->route('books.index');
     }
 }

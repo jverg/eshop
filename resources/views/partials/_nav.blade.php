@@ -18,8 +18,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/">All books</a></li>
-                <li><a href="/about">Find us</a></li>
+                <li class="{{ Request::is('/') ? "active" : ""}}"><a href="/">All books</a></li>
+                <li class="{{ Request::is('about') ? "active" : ""}}"><a href="/about">Find us</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">

@@ -35,8 +35,11 @@
                     <div class="col-sm-6">
                         {!! Html::linkRoute('books.edit', 'Edit', array($book->id), array('class' => 'btn btn-primary btn-block')) !!}
                     </div>
+
                     <div class="col-sm-6">
-                        {!! Html::linkRoute('books.destroy', 'Delete', array($book->id), array('class' => 'btn btn-danger btn-block')) !!}
+                        {!! Form::open(array('route' => array('books.destroy', $book->id), 'method' => 'DELETE')) !!}
+                        {!! Form::submit('Delete', array('class' => 'btn btn-danger btn-block')) !!}
+                        {!! Form::close() !!}
                     </div>
                 </div>
             </div>
