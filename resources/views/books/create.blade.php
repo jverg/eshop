@@ -15,6 +15,7 @@
             <h1>Create new book</h1>
             <hr>
 
+            <!-- Form for the book creation -->
             {!! Form::open(['route' => 'books.store', 'data-parsley-validate' => '']) !!}
                 {{ Form::label('title', 'Title:') }}
                 {{ Form::text('title', null, array('class' => 'form-control', 'required' => '')) }}

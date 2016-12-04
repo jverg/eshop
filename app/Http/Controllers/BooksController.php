@@ -14,9 +14,13 @@ class BooksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index() {
+
+      // Variable to store all the books from the database.
+      $books = Book::all();
+
+      // Return the view.
+      return view('books.index')->withBooks($books);
     }
 
     /**
@@ -69,9 +73,11 @@ class BooksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        return view('books.show');
+    public function show($id) {
+
+      $book = Book::find($id);
+
+      return view('books.show')->withBook($book);
     }
 
     /**
