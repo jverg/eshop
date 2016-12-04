@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Book;
+use Session;
 
 class BooksController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the books.
      *
      * @return \Illuminate\Http\Response
      */
@@ -23,33 +26,56 @@ class BooksController extends Controller
      */
     public function create()
     {
+        //Returns the view that creates a new book.
         return view('books.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created book in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+
+      // Validate the data.
+      $this->validate($request, array(
+        'title' => 'required|max:255',
+        'isbn' => 'required|max:13',
+        'description' => 'required',
+        'author' => 'required',
+        'category' => 'required',
+      ));
+
+      // Store the book in the database.
+      $book = new Book;
+      $book->title = $request->title;
+      $book->isbn = $request->isbn;
+      $book->description = $request->description;
+      $book->author = $request->author;
+      $book->category = $request->category;
+      $book->save();
+
+      Session::flash('success', 'Your book saved successfully!');
+
+      // Redirect to another page.
+      return redirect()->route('books.show', $book->id);
+
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified book.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        return view('books.show');
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified book.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -72,7 +98,7 @@ class BooksController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified book from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

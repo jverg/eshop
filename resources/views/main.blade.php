@@ -1,7 +1,7 @@
-<!DOCTYPE html>
 
 <!-- MAIN CONTENT -->
 
+<!DOCTYPE html>
 <html lang="en">
 
     <head>
@@ -14,6 +14,8 @@
 
     <body>
         <div class="container">
+
+            @include('partials._messages')
 
             <!-- main content -->
             @yield('content')

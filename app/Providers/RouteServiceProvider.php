@@ -56,6 +56,22 @@ class RouteServiceProvider extends ServiceProvider
             'namespace' => $this->namespace,
         ], function ($router) {
             require base_path('routes/web.php');
+            /**
+             * Home page.
+             */
+            Route::get('/', function () {
+                return view('pages.home');
+            });
+
+            /**
+             * Find us page.
+             */
+            Route::get('/about', function () {
+                return view('pages.about');
+            });
+
+            Route::resource('books', 'BooksController');
+
         });
     }
 
