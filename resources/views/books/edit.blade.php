@@ -21,6 +21,9 @@
             {{ Form::label('title', 'Title:', array('class' => 'form-spacing-top')) }}
             {{ Form::text('title', null, array('class' => 'form-control')) }}
 
+            {{ Form::label('slug', 'Slug:', array('class' => 'form-spacing-top')) }}
+            {{ Form::text('slug', null, array('class' => 'form-control')) }}
+
             {{ Form::label('description', 'Description:', array('class' => 'form-spacing-top')) }}
             {{ Form::textarea('description', null, array('class' => 'form-control')) }}
 

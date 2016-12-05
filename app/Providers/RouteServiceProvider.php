@@ -49,30 +49,26 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapWebRoutes()
-    {
-        Route::group([
-            'middleware' => 'web',
-            'namespace' => $this->namespace,
-        ], function ($router) {
-            require base_path('routes/web.php');
-            /**
-             * Home page.
-             */
-            Route::get('/', function () {
-                return view('pages.home');
-            });
+    protected function mapWebRoutes() {
+      Route::group([
+        'middleware' => 'web',
+        'namespace' => $this->namespace,
+      ], function ($router) {
+        require base_path('routes/web.php');
 
-            /**
-             * Find us page.
-             */
-            Route::get('/about', function () {
-                return view('pages.about');
-            });
+        // All books.
+        Route::get('/', array('uses' => 'BookstoreController@getIndex', 'as' => 'bookstore.index'));
 
-            Route::resource('books', 'BooksController');
+        // Books controller.
+        Route::resource('books', 'BooksController');
 
-        });
+        // Book's URL.
+        Route::get('book/{slug}', array('as' => 'bookstore.single', 'uses' => 'BookstoreController@getSingle'))->where('slug', '[\w\d\-\_]+');
+
+        // Find us page.
+        Route::get('about', 'PagesController@getAbout');
+
+      });
     }
 
     /**

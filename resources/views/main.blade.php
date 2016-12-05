@@ -17,6 +17,8 @@
 
             @include('partials._messages')
 
+            {{ Auth::check() ? "Logged in" : "Logged out" }}
+
             <!-- main content -->
             @yield('content')
             <!-- Include footer -->

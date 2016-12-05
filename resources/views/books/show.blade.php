@@ -20,14 +20,20 @@
         <!-- Sidebar -->
         <div class="col-md-4">
             <div class="well">
+
                 <dl class="dl-horizontal">
-                    <dt>Created at:</dt>
-                    <dd>{{ date('M j, Y h:ia', strtotime($book->created_at)) }}</dd>
+                    <label>Url:</label>
+                    <p><a href="{{ url('book/' . $book->slug) }}">{{ url($book->slug) }}</a></p>
                 </dl>
 
                 <dl class="dl-horizontal">
-                    <dt>Last updated:</dt>
-                    <dd>{{ date('M j, Y h:ia', strtotime($book->updated_at)) }}</dd>
+                    <label>Created at:</label>
+                    <p>{{ date('M j, Y h:ia', strtotime($book->created_at)) }}</p>
+                </dl>
+
+                <dl class="dl-horizontal">
+                    <label>Last updated:</label>
+                    <p>{{ date('M j, Y h:ia', strtotime($book->updated_at)) }}</p>
                 </dl>
                 <hr>
 
@@ -40,6 +46,12 @@
                         {!! Form::open(array('route' => array('books.destroy', $book->id), 'method' => 'DELETE')) !!}
                         {!! Form::submit('Delete', array('class' => 'btn btn-danger btn-block')) !!}
                         {!! Form::close() !!}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ Html::linkRoute('books.index','<< See all books', array(), array('class'=> 'btn btn-default btn-block btn-h1-spacing')) }}
                     </div>
                 </div>
             </div>

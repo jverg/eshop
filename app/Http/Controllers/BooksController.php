@@ -9,6 +9,10 @@ use Session;
 
 class BooksController extends Controller
 {
+    public function __construct() {
+      $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the books.
      *
@@ -17,7 +21,7 @@ class BooksController extends Controller
     public function index() {
 
       // Variable to store all the books from the database.
-      $books = Book::all();
+      $books = Book::orderBy('id', 'desc')->paginate(6);
 
       // Return the view.
       return view('books.index')->withBooks($books);
@@ -28,10 +32,9 @@ class BooksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //Returns the view that creates a new book.
-        return view('books.create');
+    public function create() {
+      //Returns the view that creates a new book.
+      return view('books.create');
     }
 
     /**
@@ -46,6 +49,7 @@ class BooksController extends Controller
       $this->validate($request, array(
         'isbn' => 'required|max:13',
         'title' => 'required|max:255',
+        'slug' => 'required|unique:books,slug',
         'description' => 'required',
         'author' => 'required',
         'category' => 'required',
@@ -55,6 +59,7 @@ class BooksController extends Controller
       $book = new Book;
       $book->isbn = $request->isbn;
       $book->title = $request->title;
+      $book->slug = $request->slug;
       $book->description = $request->description;
       $book->author = $request->author;
       $book->category = $request->category;
@@ -106,18 +111,31 @@ class BooksController extends Controller
     public function update(Request $request, $id) {
 
       // Validate the data.
-      $this->validate($request, array(
-        'isbn' => 'required|max:13',
-        'title' => 'required|max:255',
-        'description' => 'required',
-        'author' => 'required',
-        'category' => 'required',
-      ));
+      $book = Book::find($id);
+      if ($request->input('slug') == $book->slug) {
+        $this->validate($request, array(
+          'isbn' => 'required|max:13',
+          'title' => 'required|max:255',
+          'description' => 'required',
+          'author' => 'required',
+          'category' => 'required',
+        ));
+      } else {
+        $this->validate($request, array(
+          'isbn' => 'required|max:13',
+            'title' => 'required|max:255',
+            'slug' => 'required|unique:books,slug',
+            'description' => 'required',
+            'author' => 'required',
+            'category' => 'required',
+        ));
+      }
 
       // Save the book to database.
       $book = Book::find($id);
       $book->isbn = $request->input('isbn');
       $book->title = $request->input('title');
+      $book->slug = $request->input('slug');
       $book->description = $request->input('description');
       $book->author = $request->input('author');
       $book->category = $request->input('category');

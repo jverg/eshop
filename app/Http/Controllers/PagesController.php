@@ -2,21 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Book;
+
 class PagesController extends Controller {
 
-  public function getIndex() {
-
-  }
-
   public function getAbout() {
-
-  }
-
-  public function getContact() {
-    return "Hello Contact";
-  }
-
-  public function postContact() {
-
+    return view('pages.about');
   }
 }

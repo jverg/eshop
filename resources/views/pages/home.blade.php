@@ -18,23 +18,16 @@
 
       <div class="row">
           <div class="col-md-8">
-              <div class="book">
-                  <h3>Book title</h3>
-                  <p>Lorem ipsum</p>
-                  <a href="#" class="btn btn-primary">Add to cart</a>
-              </div>
-              <hr>
-              <div class="book">
-                  <h3>Book title</h3>
-                  <p>Lorem ipsum</p>
-                  <a href="#" class="btn btn-primary">Add to cart</a>
-              </div>
-              <hr>
-              <div class="book">
-                  <h3>Book title</h3>
-                  <p>Lorem ipsum</p>
-                  <a href="#" class="btn btn-primary">Add to cart</a>
-              </div>
+
+              @foreach($books as $book)
+                  <div class="book">
+                      <h3>{{ $book->title }}</h3>
+                      <p>{{ substr($book->description, 0, 300) }}{{ strlen($book->description > 300 ? '...' : '') }}</p>
+                      <a href="{{ url('book/' . $book->slug) }}" class="btn btn-primary">Show more</a>
+                  </div>
+                  <hr>
+              @endforeach
+
           </div>
           <div class="col-md-3 col-md-offset-1">
               <h2>Sidebar</h2>

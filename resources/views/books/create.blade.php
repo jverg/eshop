@@ -20,6 +20,9 @@
                 {{ Form::label('title', 'Title:') }}
                 {{ Form::text('title', null, array('class' => 'form-control', 'required' => '')) }}
 
+                {{ Form::label('slug', 'Slug:') }}
+                {{ Form::text('slug', null, array('class' => 'form-control', 'required' => '')) }}
+
                 {{ Form::label('isbn', 'ISBN:') }}
                 {{ Form::text('isbn', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '13')) }}
 

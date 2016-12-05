@@ -26,6 +26,7 @@
     <!-- Books table -->
     <div class="row">
         <div class="col-md-12">
+
             <table class="table">
                 <thead>
                     <th>#</th>
@@ -35,6 +36,7 @@
                     <th>Author</th>
                     <th>Created at</th>
                 </thead>
+
                 <tbody>
                     @foreach($books as $book)
                         <tr>
@@ -46,12 +48,15 @@
                             <td>{{ date('M j, Y', strtotime($book->created_at)) }}</td>
                             <td>
                                 <a href="{{ route('books.show', $book->id) }}", class="btn btn-default">View</a>
-                                <a href="{{ route('books.edit', $book->id) }}" class="btn btn-default">Edit</a>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+
+            <div class="text-center">
+                {!! $books->links() !!}
+            </div>
         </div>
     </div>
 
