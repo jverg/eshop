@@ -15,13 +15,4 @@ class BookstoreController extends Controller {
 
     return view('bookstore.index')->withBooks($books);
   }
-
-  // Show single book.
-  public function getSingle($slug) {
-
-    // Get book based on slug.
-    $book = Book::where('slug', '=', $slug)->first();
-
-    return view('bookstore.single')->withBook($book);
-  }
 }

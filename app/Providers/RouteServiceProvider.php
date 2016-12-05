@@ -62,9 +62,6 @@ class RouteServiceProvider extends ServiceProvider
         // Books controller.
         Route::resource('books', 'BooksController');
 
-        // Book's URL.
-        Route::get('book/{slug}', array('as' => 'bookstore.single', 'uses' => 'BookstoreController@getSingle'))->where('slug', '[\w\d\-\_]+');
-
         // Find us page.
         Route::get('about', 'PagesController@getAbout');
 

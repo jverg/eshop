@@ -43,7 +43,7 @@
                             <th>{{ $book->id }}</th>
                             <td>{{ $book->isbn }}</td>
                             <td>{{ $book->title }}</td>
-                            <td>{{ substr($book->description, 0, 300) }}{{ strlen($book->description) > 300 ? '...' : '' }}</td>
+                            <td>{{ substr($book->description, 0, 30) }}{{ strlen($book->description) > 15 ? '...' : '' }}</td>
                             <td>{{ $book->author }}</td>
                             <td>{{ date('M j, Y', strtotime($book->created_at)) }}</td>
                             <td>

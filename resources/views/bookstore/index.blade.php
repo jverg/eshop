@@ -12,7 +12,7 @@
 
                 <p>{{ $book->description }}</p>
 
-                <a href="{{ url('book/' . $book->slug) }}" class="btn btn-primary">Show more</a>
+                <a href="{{ route('books.show', $book->id) }}" class="btn btn-primary">Show more</a>
                 <hr>
             </div>
         </div>

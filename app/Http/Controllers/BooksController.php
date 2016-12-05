@@ -50,7 +50,6 @@ class BooksController extends Controller
       $this->validate($request, array(
         'isbn' => 'required|max:13',
         'title' => 'required|max:255',
-        'slug' => 'required|unique:books,slug',
         'description' => 'required',
         'author' => 'required',
         'category' => 'required',
@@ -60,7 +59,6 @@ class BooksController extends Controller
       $book = new Book;
       $book->isbn = $request->isbn;
       $book->title = $request->title;
-      $book->slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title);
       $book->description = $request->description;
       $book->author = $request->author;
       $book->category = $request->category;
@@ -116,7 +114,6 @@ class BooksController extends Controller
       $this->validate($request, array(
         'isbn' => 'required|max:13',
         'title' => 'required|max:255',
-        'slug' => 'required|unique:books,slug',
         'description' => 'required',
         'author' => 'required',
         'category' => 'required',
@@ -125,7 +122,6 @@ class BooksController extends Controller
       // Save the book to database.
       $book->isbn = $request->input('isbn');
       $book->title = $request->input('title');
-      $book->slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $request->input('title'));
       $book->description = $request->input('description');
       $book->author = $request->input('author');
       $book->category = $request->input('category');
