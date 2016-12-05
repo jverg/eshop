@@ -33,6 +33,7 @@ class BooksController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create() {
+
       //Returns the view that creates a new book.
       return view('books.create');
     }
@@ -59,7 +60,7 @@ class BooksController extends Controller
       $book = new Book;
       $book->isbn = $request->isbn;
       $book->title = $request->title;
-      $book->slug = $request->slug;
+      $book->slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title);
       $book->description = $request->description;
       $book->author = $request->author;
       $book->category = $request->category;
@@ -112,30 +113,19 @@ class BooksController extends Controller
 
       // Validate the data.
       $book = Book::find($id);
-      if ($request->input('slug') == $book->slug) {
-        $this->validate($request, array(
-          'isbn' => 'required|max:13',
-          'title' => 'required|max:255',
-          'description' => 'required',
-          'author' => 'required',
-          'category' => 'required',
-        ));
-      } else {
-        $this->validate($request, array(
-          'isbn' => 'required|max:13',
-            'title' => 'required|max:255',
-            'slug' => 'required|unique:books,slug',
-            'description' => 'required',
-            'author' => 'required',
-            'category' => 'required',
-        ));
-      }
+      $this->validate($request, array(
+        'isbn' => 'required|max:13',
+        'title' => 'required|max:255',
+        'slug' => 'required|unique:books,slug',
+        'description' => 'required',
+        'author' => 'required',
+        'category' => 'required',
+      ));
 
       // Save the book to database.
-      $book = Book::find($id);
       $book->isbn = $request->input('isbn');
       $book->title = $request->input('title');
-      $book->slug = $request->input('slug');
+      $book->slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $request->input('title'));
       $book->description = $request->input('description');
       $book->author = $request->input('author');
       $book->category = $request->input('category');

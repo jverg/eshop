@@ -8,10 +8,6 @@ use App\Http\Requests;
 
 class BookstoreController extends Controller {
 
-  public function __construct() {
-    $this->middleware('auth');
-  }
-
   // Show all books.
   public function getIndex() {
 
